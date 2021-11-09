@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 
 import logoImg from '../../assets/logo.png'
 
@@ -8,15 +9,15 @@ export function Header() {
     <header className={styles.container}>
       <img src={logoImg} alt="Patrocina Várzea" className={styles.logo} />
       <div className={styles.navLink}>
-        <a href="/">
+        <Link to="/">
           <p>Cadastra-se</p>
-        </a>
-        <a href="/sobre">
+        </Link>
+        <Link to="/sobre">
           <p>Sobre</p>
-        </a>
-        <a href="/contato">
+        </Link>
+        <Link to="/contato">
           <p>Contato</p>
-        </a>
+        </Link>
       </div>
     </header>
   );

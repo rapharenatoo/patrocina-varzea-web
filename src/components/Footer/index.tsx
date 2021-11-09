@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 
 import logoImg from '../../assets/logo.png'
 import bllackdevImg from '../../assets/bllackdev.png'
@@ -10,15 +11,15 @@ export function Footer() {
       <div className={styles.contentTop}>
         <img src={logoImg} alt="Patrocina Várzea" className={styles.logo} />
         <div className={styles.navLink}>
-          <a href="/">
+          <Link to="/">
             <p>Cadastra-se</p>
-          </a>
-          <a href="/sobre">
+          </Link>
+          <Link to="/sobre">
             <p>Sobre</p>
-          </a>
-          <a href="/contato">
+          </Link>
+          <Link to="/contato">
             <p>Contato</p>
-          </a>
+          </Link>
           <a href="https://play.google.com/store" target="_blank">
             <p>Baixe o App</p>
           </a>

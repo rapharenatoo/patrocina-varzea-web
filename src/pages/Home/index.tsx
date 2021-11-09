@@ -1,11 +1,11 @@
 
 
 import { Header } from '../../components/Header';
+import { Footer } from '../../components/Footer';
 
 import PhoneImg from '../../assets/phone.png'
 
 import styles from './styles.module.scss'
-import { Footer } from '../../components/Footer';
 
 export function Home() {
   return (
