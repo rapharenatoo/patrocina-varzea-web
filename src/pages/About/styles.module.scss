@@ -1,0 +1,98 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-image: url(../../assets/background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    justify-content: center;
+    border-bottom: 1px solid #121214;
+    padding: 2rem 2rem;
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        border-radius: 8px;
+        background-color: #111215;
+        padding: 0 1.5rem 1.2rem 1.2rem;
+
+        img {
+            width: 25rem;
+            height: 15rem;
+            margin-top: -30px;
+            margin-bottom: -30px;
+        }
+
+        .text {
+            color: #FFFFFF;
+            text-align: end;
+            
+            h1 {
+                margin-bottom: 16px;
+                font-size: 1.6rem;
+            }
+        }
+    }
+
+    @media(min-width: 768px) {
+        padding: 3rem 3rem;
+
+       .content {
+            padding: 0 3rem 3rem 3rem;
+            
+            img {
+                width: 25rem;
+                height: 23rem;
+                margin-top: -30px;
+                margin-bottom: -70px;
+            }
+            .text {
+                h1 {
+                    margin-bottom: 16px;
+                    font-size: 2rem;
+                }
+
+                p {
+                    font-size: 1.2rem;
+                }
+            }
+        }
+    }
+
+    @media(min-width: 1024px) {
+        padding: 5rem 5rem;
+
+        .content {
+             display: flex;
+             flex-direction: row;
+             justify-content: center;
+             align-items: center;
+             padding: 5rem 3rem 5rem 3rem;
+             width: 70vw;
+             height: 80vh;
+
+             img {
+                 width: 35rem;
+                 height: 30rem;
+                 margin-left: -100px;
+                 margin-right: -90px;
+             }
+             .text {
+                h1 {
+                     margin-bottom: 16px;
+                     font-size: 2.3rem;
+                 }
+ 
+                 p {
+                     font-size: 1.5rem;
+                 }
+             }
+         }
+     }
+}
