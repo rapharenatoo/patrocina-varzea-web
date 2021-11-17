@@ -1,72 +1,87 @@
 .container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0 2rem;
+  background-color: #e1e1e6;
+  justify-content: space-between;
+  border-bottom: 1px solid #121214;
+
+  .logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .navLink {
     display: flex;
+    justify-content: space-around;
     align-items: center;
-    width: 100%;
-    padding: 0 2rem;
-    background-color: #e1e1e6;
-    justify-content: space-between;
-    border-bottom: 1px solid #121214;
+    width: 70%; // dekstop: 50%
 
+    a {
+      border-radius: 4px;
+      color: #121214;
+      padding: 6px;
+      font-family: Roboto;
+      font-weight: 500;
+      font-size: 0.8rem;
+
+      &:hover {
+        background-color: #121214;
+        color: #e1e1e6;
+      }
+    }
+
+    button {
+      border: 2px solid #121214;
+      border-radius: 4px;
+      color: #121214;
+      padding: 6px;
+      font-family: Roboto;
+      font-weight: 500;
+      font-size: 0.8rem;
+
+      &:hover {
+        background-color: #121214;
+        color: #e1e1e6;
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
     .logo {
-        width: 60px;
-        height: 60px; 
+      margin: 0 60px;
     }
-
     .navLink {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        width: 70%; // dekstop: 50%
+      width: 60%;
+      padding: 0 3rem;
 
-        a:first-child {
-            border: 2px solid #121214;
-            border-radius: 4px;
-        }
-        
-        a {
-            border-radius: 4px;
-            color: #121214;
-            padding: 6px;
-            font-family: Roboto;
-            font-weight: 500;
-            font-size: 0.8rem;
+      a {
+        font-size: 1rem;
+      }
 
-            &:hover {
-                background-color: #121214;
-                color: #e1e1e6;
-            }
-        }
+      button {
+        font-size: 1rem;
+      }
     }
+  }
 
-    @media(min-width:768px) {
-        .logo {
-            margin: 0 60px;   
-        }
-        .navLink {
-            width: 60%;
-            padding: 0 3rem;
-            
-            a {
-                font-size: 1rem;
-            }
-        }
+  @media (min-width: 1024px) {
+    padding: 0 5.625rem;
+    svg {
+      width: 100px;
+      height: 60px;
     }
+    .navLink {
+      width: 40%;
 
-    @media(min-width:1024px) {
-        padding: 0 5.625rem;
-        svg {
-            width: 100px;
-            height: 60px;
-        }
-        .navLink {
-            width: 40%;
-            
-            a {
-                font-size: 1.3rem;
-            }
-        }
+      a {
+        font-size: 1.3rem;
+      }
 
-
+      button {
+        font-size: 1.3rem;
+      }
     }
-    
+  }
 }
