@@ -1,5 +1,6 @@
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
+import { TabsCategories } from "../../components/TabsCategories";
 
 import PhoneImg from "../../assets/phone.png";
 
@@ -23,20 +24,7 @@ export function Home() {
         </div>
       </section>
       <section id="categories" className={styles.categories}>
-        <ul className={styles.items}>
-          <li className={styles.item}>
-            <a href="#clube" defaultChecked>
-              Clube
-            </a>
-          </li>
-          <li className={styles.item}>
-            <a href="#patrocinador">Patrocinador</a>
-          </li>
-          <li className={styles.item}>
-            <a href="#confeccao">Confecção Uniformes</a>
-          </li>
-        </ul>
-        <div className={styles.contentItem}></div>
+        <TabsCategories />
       </section>
       <Footer />
     </>

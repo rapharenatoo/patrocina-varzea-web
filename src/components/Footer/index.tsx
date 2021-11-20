@@ -9,7 +9,9 @@ export function Footer() {
   return (
     <footer className={styles.container}>
       <div className={styles.contentTop}>
-        <img src={logoImg} alt="Patrocina Várzea" className={styles.logo} />
+        <Link to="/" style={{ backgroundColor: "transparent" }}>
+          <img src={logoImg} alt="Patrocina Várzea" className={styles.logo} />
+        </Link>
         <div className={styles.navLink}>
           <Link to="/">
             <p>Cadastra-se</p>

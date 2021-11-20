@@ -19,7 +19,10 @@ export function Header() {
 
   return (
     <header className={styles.container}>
-      <img src={logoImg} alt="Patrocina Várzea" className={styles.logo} />
+      <Link to="/" style={{ backgroundColor: "transparent" }}>
+        <img src={logoImg} alt="Patrocina Várzea" className={styles.logo} />
+      </Link>
+
       <div className={styles.navLink}>
         <div>
           <button id="basic-button" onClick={handleClick}>
@@ -41,17 +44,17 @@ export function Header() {
             }}
           >
             <MenuItem>
-              <Link to="/clube" style={{ color: "#e1e1e6" }}>
+              <Link to="/" style={{ color: "#e1e1e6" }}>
                 Clube
               </Link>
             </MenuItem>
             <MenuItem>
-              <Link to="/patrocinador" style={{ color: "#e1e1e6" }}>
+              <Link to="/" style={{ color: "#e1e1e6" }}>
                 Patrocinador
               </Link>
             </MenuItem>
             <MenuItem>
-              <Link to="/confeccao" style={{ color: "#e1e1e6" }}>
+              <Link to="/" style={{ color: "#e1e1e6" }}>
                 Confecção
               </Link>
             </MenuItem>
