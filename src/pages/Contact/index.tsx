@@ -36,11 +36,6 @@ export function Contact() {
             action="https://formsubmit.co/raphaelrenatoo@gmail.com"
             method="POST"
           >
-            <input
-              type="hidden"
-              name="_next"
-              value="https://patrocinavarzea.vercel.app/contato/envio-sucesso"
-            />
             <input type="hidden" name="_captcha" value="false" />
             <input type="hidden" name="_template" value="table" />
             <input
@@ -48,7 +43,12 @@ export function Contact() {
               name="_autoresponse"
               value="Recebemos sua mensagem, agradecemos pelo contato. Assim que possível, retornaremos o contato!"
             />
-            <input type="hidden" name="_cc" value="contato@patrocinavarzea.com.br" />
+            {/* <input type="hidden" name="_cc" value="contato@patrocinavarzea.com.br" /> */}
+            <input
+              type="hidden"
+              name="_next"
+              value="https://patrocinavarzea.vercel.app/contato/envio-sucesso"
+            />
 
             <h1>Contato</h1>
 
