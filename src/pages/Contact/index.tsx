@@ -47,7 +47,7 @@ export function Contact() {
             <input
               type="hidden"
               name="_next"
-              value="https://patrocinavarzea.vercel.app/contato/envio-sucesso"
+              value="https://patrocinavarzea.vercel.app/contato/sucesso"
             />
 
             <h1>Contato</h1>

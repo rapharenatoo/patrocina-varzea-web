@@ -19,7 +19,7 @@ export function App() {
           <Route path="/" element={<Home />} />
           <Route path="/sobre" element={<About />} />
           <Route path="/contato" element={<Contact />} />
-          <Route path="/contato/envio-sucesso" element={<SendEmailSuccess />} />
+          <Route path="/contato/sucesso" element={<SendEmailSuccess />} />
           <Route path="/cadastro/clube" element={<ClubForm />} />
           <Route path="/cadastro/patrocinador" element={<SponsorForm />} />
           <Route path="/cadastro/confeccao" element={<ConfectionForm />} />
