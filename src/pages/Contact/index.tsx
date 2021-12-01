@@ -29,9 +29,27 @@ export function Contact() {
   return (
     <>
       <Header />
+
       <main className={styles.container}>
         <div className={styles.content}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form
+            action="https://formsubmit.co/raphaelrenatoo@gmail.com"
+            method="POST"
+          >
+            <input
+              type="hidden"
+              name="_next"
+              value="https://patrocinavarzea.vercel.app/contato/envio-sucesso"
+            />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
+            <input
+              type="hidden"
+              name="_autoresponse"
+              value="Recebemos sua mensagem, agradecemos pelo contato. Assim que possível, retornaremos o contato!"
+            />
+            <input type="hidden" name="_cc" value="contato@patrocinavarzea.com.br" />
+
             <h1>Contato</h1>
 
             <input
@@ -42,6 +60,7 @@ export function Contact() {
 
             <input
               {...register("email", { required: true, maxLength: 50 })}
+              type="email"
               placeholder="Email"
             />
             {errors.email && <span>Este campo é obrigatório </span>}

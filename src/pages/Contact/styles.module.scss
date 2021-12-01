@@ -29,6 +29,8 @@
       justify-content: center;
       color: #ffffff;
       font-size: 0.8rem;
+      width: 100%;
+      padding: 0 1rem;
 
       h1 {
         color: #ffffff;
@@ -44,6 +46,7 @@
         padding: 5px 10px;
         margin: 8px 0;
         font-size: 0.9rem;
+        width: 100%;
       }
 
       textarea {
@@ -56,6 +59,7 @@
         font-size: 0.9rem;
         resize: none;
         height: 10vh;
+        width: 100%;
       }
 
       span {

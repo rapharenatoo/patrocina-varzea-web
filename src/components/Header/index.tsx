@@ -44,17 +44,17 @@ export function Header() {
             }}
           >
             <MenuItem>
-              <Link to="/" style={{ color: "#e1e1e6" }}>
+              <Link to="/cadastro/clube" style={{ color: "#e1e1e6" }}>
                 Clube
               </Link>
             </MenuItem>
             <MenuItem>
-              <Link to="/" style={{ color: "#e1e1e6" }}>
+              <Link to="/cadastro/patrocinador" style={{ color: "#e1e1e6" }}>
                 Patrocinador
               </Link>
             </MenuItem>
             <MenuItem>
-              <Link to="/" style={{ color: "#e1e1e6" }}>
+              <Link to="/cadastro/confeccao" style={{ color: "#e1e1e6" }}>
                 Confecção
               </Link>
             </MenuItem>
