@@ -43,9 +43,10 @@ const ConfectionForm: React.FC = () => {
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit = (data) => {
-    console.log(JSON.stringify(data, null, 2));
+  const onSubmit = () => {
+    console.log("Submit");
   };
+
 
   return (
     <>
