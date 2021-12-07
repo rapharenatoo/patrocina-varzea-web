@@ -2,7 +2,7 @@ import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { TabsCategories } from "../../components/TabsCategories";
 
-import PhoneImg from "../../assets/app.gif";
+import PhoneImg from "../../assets/phone.png";
 
 import styles from "./styles.module.scss";
 
