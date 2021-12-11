@@ -89,7 +89,7 @@ export const style = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: "#000",
-          color: "#FFF",
+          color: "#000",
         },
       },
     },
