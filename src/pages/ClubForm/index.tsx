@@ -47,7 +47,7 @@ const ClubForm: React.FC = () => {
 
   return (
     <>
-      <Header />{" "}
+      <Header />
       <main className={styles.container}>
         <Paper variant="outlined" elevation={3} className={styles.content}>
           <Box className={styles.form}>

@@ -13,9 +13,6 @@ export function Footer() {
           <img src={logoImg} alt="Patrocina Várzea" className={styles.logo} />
         </Link>
         <div className={styles.navLink}>
-          <Link to="/">
-            <p>Cadastra-se</p>
-          </Link>
           <Link to="/sobre">
             <p>Sobre</p>
           </Link>

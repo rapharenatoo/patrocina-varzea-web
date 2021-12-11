@@ -4,7 +4,6 @@
   box-sizing: border-box;
   font-family: Roboto, sans-serif;
   font-size: 0.95rem;
-
 }
 @media (min-width: 768px) {
   * {
@@ -30,11 +29,6 @@
   border-radius: 10px;
 }
 
-::-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 30px #000 inset;
-  box-shadow: none;
-}
-
 img {
   width: 100%;
   max-width: 100%;
@@ -53,7 +47,7 @@ a {
 button,
 input {
   border: 0;
-  background: none;  
+  background: none;
 }
 
 body {

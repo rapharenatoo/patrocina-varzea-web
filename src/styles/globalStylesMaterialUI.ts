@@ -18,28 +18,12 @@ export const style = createTheme({
   components: {
     MuiOutlinedInput: {
       styleOverrides: {
-        // root: {
-        //   position: "relative",
-        //   "& $notchedOutline": {
-        //     borderColor: "#797979",
-        //   },
-        //   "&:hover:not($disabled):not($focused):not($error) $notchedOutline": {
-        //     borderColor: "#797979",
-        //     // Reset on touch devices, it doesn't add specificity
-        //     "@media (hover: none)": {
-        //       borderColor: "#797979",
-        //     },
-        //   },
-        //   "&$focused $notchedOutline": {
-        //     borderColor: "#797979",
-        //     borderWidth: 2,
-        //   },
-        //   "&$actived": {
-        //     borderColor: "#797979",
-        //     borderWidth: 1,
-        //   },
-        //   borderColor: "#797979",
-        // },
+        root: {
+          borderRadius: "0px",
+        },
+        input: {
+          WebkitBoxShadow: "0px 0px 0px 30px #000 inset",
+        },
       },
     },
     MuiFormLabel: {
@@ -90,6 +74,7 @@ export const style = createTheme({
         root: {
           backgroundColor: "#000",
           color: "#000",
+          WebkitTextFillColor: "#FFF",
         },
       },
     },
