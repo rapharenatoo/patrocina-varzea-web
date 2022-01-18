@@ -32,6 +32,11 @@
         color: #d83030;
       }
 
+      .buttonContainer{
+        display: flex;
+        justify-content: center;
+      }
+
       .button {
         color: #111215;
         background-color: #e1cb00;
@@ -41,6 +46,7 @@
         font-size: 0.8rem;
         font-weight: 500;
         width: 100px;
+        
 
         &:hover {
           filter: brightness(0.9);

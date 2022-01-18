@@ -185,7 +185,7 @@ export function Contact() {
               </Grid>
 
               <button type="submit" className={styles.button}>
-                Enviar
+                ENVIAR
               </button>
             </Box>
           </form>

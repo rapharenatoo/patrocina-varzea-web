@@ -37,6 +37,7 @@ const ConfectionForm: React.FC = () => {
   const {
     register,
     control,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -45,6 +46,25 @@ const ConfectionForm: React.FC = () => {
 
   const onSubmit = () => {
     console.log("Submit");
+  };
+
+  const onBlurZipCode = (ev: any, setValue: any) => {
+    const { value } = ev.target;
+
+    const zipCode = value?.replace(/[^0-9]/g, "");
+
+    if (zipCode?.length !== 8) {
+      return;
+    }
+
+    fetch(`https://viacep.com.br/ws/${zipCode}/json/`)
+      .then((res) => res.json())
+      .then((data) => {
+        setValue("city", data.localidade);
+        setValue("neighborhood", data.bairro);
+        setValue("address", data.logradouro);
+        setValue("state", data.uf);
+      });
   };
 
 
@@ -208,6 +228,7 @@ const ConfectionForm: React.FC = () => {
                   fullWidth
                   margin="dense"
                   {...register("zipCode")}
+                  onBlur={(ev) => onBlurZipCode(ev, setValue)}
                   InputProps={{
                     className: styles.input,
                   }}
@@ -233,6 +254,7 @@ const ConfectionForm: React.FC = () => {
                   InputProps={{
                     className: styles.input,
                   }}
+                  InputLabelProps={{ shrink: true }}
                   error={errors.address ? true : false}
                 />
                 <Typography
@@ -277,6 +299,7 @@ const ConfectionForm: React.FC = () => {
                   InputProps={{
                     className: styles.input,
                   }}
+                  InputLabelProps={{ shrink: true }}
                   error={errors.neighborhood ? true : false}
                 />
                 <Typography
@@ -299,6 +322,7 @@ const ConfectionForm: React.FC = () => {
                   InputProps={{
                     className: styles.input,
                   }}
+                  InputLabelProps={{ shrink: true }}
                   error={errors.state ? true : false}
                 />
                 <Typography
@@ -321,6 +345,7 @@ const ConfectionForm: React.FC = () => {
                   InputProps={{
                     className: styles.input,
                   }}
+                  InputLabelProps={{ shrink: true }}
                   error={errors.city ? true : false}
                 />
                 <Typography
