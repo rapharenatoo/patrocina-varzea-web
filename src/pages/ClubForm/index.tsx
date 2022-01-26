@@ -9,9 +9,20 @@ import { Footer } from "../../components/Footer";
 
 import styles from "./styles.module.scss";
 import RadioButton from "../../components/RadioButton";
-import axios from "axios";
+// import axios from "axios";
+// import { api, apiLocalHost } from "../../services/api";
+import database from "../../services/firebase";
+import { useState } from "react";
 
-const ClubForm: React.FC = () => {
+interface ClubFormProps {
+  setFieldValue?: (
+    field: string,
+    value: any,
+    shouldValidate?: boolean | undefined
+  ) => void;
+}
+
+const ClubForm: React.FC<ClubFormProps> = ({ setFieldValue }) => {
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Nome do Clube é obrigatório"),
     email: Yup.string()
@@ -22,11 +33,12 @@ const ClubForm: React.FC = () => {
       .required("Senha é obrigatório")
       .min(6, "A senha deve ter pelo menos 6 caracteres")
       .max(40, "A senha não deve ter mais de 40 caracteres"),
-    confirmPassword: Yup.string()
-      .required("Confirmação de senha é obrigatório")
-      .oneOf([Yup.ref("password"), null], "Senhas não são iguais"),
+    confirmPassword: Yup.string().oneOf(
+      [Yup.ref("password"), null],
+      "Senhas não são iguais"
+    ),
     zipCode: Yup.string().required("CEP é obrigatório"),
-    address: Yup.string().required("Endereço é obrigatório"),
+    street: Yup.string().required("Endereço é obrigatório"),
     number: Yup.string().required("Número é obrigatório"),
     neighborhood: Yup.string().required("Bairro é obrigatório"),
     state: Yup.string().required("Estado é obrigatório"),
@@ -41,17 +53,89 @@ const ClubForm: React.FC = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(validationSchema) });
 
-  const newClub = (data: any) => {
-    axios
-      .post("http://localhost:8080/cadastro/clube", data)
-      .then(() => {
-        console.log("Deu tudo certo");
-        // history.push("/");
-      })
-      .catch(() => {
-        console.log("DEU ERRADO");
-        console.log(data);
-      });
+  // const newClub = (data: any) => {
+  //   apiLocalHost
+  //     .post("/cadastro/clube", data)
+  //     .then(() => {
+  //       console.log("Deu tudo certo");
+  //       console.log(data);
+  //       // history.push("/");
+  //     })
+  //     .catch(() => {
+  //       console.log("DEU ERRADO");
+  //       console.log(data);
+  //     });
+  // };
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [taxId, setTaxId] = useState("");
+  const [password, setPassword] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [street, setStreet] = useState("");
+  const [number, setNumber] = useState("");
+  const [neighborhood, setNeighborhood] = useState("");
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+  const [foundationDate, setFoundationDate] = useState("");
+  const [zone, setZone] = useState("");
+  const [clubColors, setClubColors] = useState("");
+  const [instagram, setInstagram] = useState("");
+  const [facebook, setFacebook] = useState("");
+  const [nameContact, setNameContact] = useState("");
+  const [phoneContact, setPhoneContact] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [ownField, setOwnField] = useState(false);
+  const [wantSponsorship, setWantSponsorship] = useState(true);
+  const [isSponsorship, setIsSponsorship] = useState(false);
+
+  const newClubFb = (data: any) => {
+    data.preventDefault();
+    database.collection("club").add({
+      name,
+      email,
+      taxId,
+      password,
+      zipCode,
+      street,
+      number,
+      neighborhood,
+      state,
+      city,
+      foundationDate,
+      zone,
+      clubColors,
+      instagram,
+      facebook,
+      nameContact,
+      phoneContact,
+      endDate,
+      ownField,
+      wantSponsorship,
+      isSponsorship,
+    });
+
+    setName("");
+    setEmail("");
+    setTaxId("");
+    setPassword("");
+    setZipCode("");
+    setStreet("");
+    setNumber("");
+    setNeighborhood("");
+    setState("");
+    setCity("");
+    setFoundationDate("");
+    setZone("");
+    setClubColors("");
+    setInstagram("");
+    setFacebook("");
+    setNameContact("");
+    setPhoneContact("");
+    setEndDate("");
+    setOwnField(false);
+    setWantSponsorship(true);
+    setIsSponsorship(false);
   };
 
   const onBlurZipCode = (ev: any, setValue: any) => {
@@ -68,8 +152,9 @@ const ClubForm: React.FC = () => {
       .then((data) => {
         setValue("city", data.localidade);
         setValue("neighborhood", data.bairro);
-        setValue("address", data.logradouro);
+        setValue("street", data.logradouro);
         setValue("state", data.uf);
+        console.log("data", data);
       });
   };
 
@@ -87,7 +172,7 @@ const ClubForm: React.FC = () => {
             >
               Cadastrar Clube
             </Typography>
-            <form onSubmit={handleSubmit(newClub)}>
+            <form onSubmit={newClubFb}>
               <Grid container spacing={1}>
                 <Grid item xs={12} sm={12}>
                   <TextField
@@ -96,7 +181,8 @@ const ClubForm: React.FC = () => {
                     label="Nome do Clube"
                     fullWidth
                     margin="dense"
-                    {...register("name")}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     InputProps={{
                       className: styles.input,
                     }}
@@ -119,7 +205,8 @@ const ClubForm: React.FC = () => {
                     type="email"
                     fullWidth
                     margin="dense"
-                    {...register("email")}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     InputProps={{
                       className: styles.input,
                     }}
@@ -140,7 +227,8 @@ const ClubForm: React.FC = () => {
                     label="CPF / CNPJ"
                     fullWidth
                     margin="dense"
-                    {...register("taxId")}
+                    value={taxId}
+                    onChange={(e) => setTaxId(e.target.value)}
                     InputProps={{
                       className: styles.input,
                     }}
@@ -164,7 +252,8 @@ const ClubForm: React.FC = () => {
                     fullWidth
                     margin="dense"
                     color="primary"
-                    {...register("password")}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     InputProps={{
                       className: styles.input,
                     }}
@@ -186,7 +275,6 @@ const ClubForm: React.FC = () => {
                     type="password"
                     fullWidth
                     margin="dense"
-                    {...register("confirmPassword")}
                     InputProps={{
                       className: styles.input,
                     }}
@@ -208,7 +296,8 @@ const ClubForm: React.FC = () => {
                     label="CEP"
                     fullWidth
                     margin="dense"
-                    {...register("zipCode")}
+                    value={zipCode}
+                    onChange={(e) => setZipCode(e.target.value)}
                     onBlur={(ev) => onBlurZipCode(ev, setValue)}
                     InputProps={{
                       className: styles.input,
@@ -227,23 +316,24 @@ const ClubForm: React.FC = () => {
                 <Grid item xs={12} sm={8}>
                   <TextField
                     required
-                    id="address"
+                    id="street"
                     label="Endereço"
                     fullWidth
                     margin="dense"
-                    {...register("address")}
+                    value={street}
+                    onChange={(e) => setStreet(e.target.value)}
                     InputProps={{
                       className: styles.input,
                     }}
                     InputLabelProps={{ shrink: true }}
-                    error={errors.address ? true : false}
+                    error={errors.street ? true : false}
                   />
                   <Typography
                     variant="inherit"
                     color="textSecondary"
                     className={styles.errorMessage}
                   >
-                    {errors.address?.message}
+                    {errors.street?.message}
                   </Typography>
                 </Grid>
 
@@ -254,7 +344,8 @@ const ClubForm: React.FC = () => {
                     label="Nº"
                     fullWidth
                     margin="dense"
-                    {...register("number")}
+                    value={number}
+                    onChange={(e) => setNumber(e.target.value)}
                     InputProps={{
                       className: styles.input,
                     }}
@@ -276,7 +367,8 @@ const ClubForm: React.FC = () => {
                     label="Bairro"
                     fullWidth
                     margin="dense"
-                    {...register("neighborhood")}
+                    value={neighborhood}
+                    onChange={(e) => setNeighborhood(e.target.value)}
                     InputProps={{
                       className: styles.input,
                     }}
@@ -300,7 +392,8 @@ const ClubForm: React.FC = () => {
                     label="Estado"
                     fullWidth
                     margin="dense"
-                    {...register("state")}
+                    value={state}
+                    onChange={(e) => setState(e.target.value)}
                     InputProps={{
                       className: styles.input,
                     }}
@@ -323,7 +416,8 @@ const ClubForm: React.FC = () => {
                     label="Cidade"
                     fullWidth
                     margin="dense"
-                    {...register("city")}
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
                     InputProps={{
                       className: styles.input,
                     }}
@@ -342,22 +436,23 @@ const ClubForm: React.FC = () => {
 
                 <Grid item xs={12} sm={4}>
                   <TextField
-                    id="dateFoundation"
+                    id="foundationDate"
                     label="Data de Fundação"
                     fullWidth
                     margin="dense"
-                    {...register("dateFoundation")}
+                    value={foundationDate}
+                    onChange={(e) => setFoundationDate(e.target.value)}
                     InputProps={{
                       className: styles.input,
                     }}
-                    error={errors.dateFoundation ? true : false}
+                    error={errors.foundationDate ? true : false}
                   />
                   <Typography
                     variant="inherit"
                     color="textSecondary"
                     className={styles.errorMessage}
                   >
-                    {errors.dateFoundation?.message}
+                    {errors.foundationDate?.message}
                   </Typography>
                 </Grid>
 
@@ -367,7 +462,8 @@ const ClubForm: React.FC = () => {
                     label="Região / Zona"
                     fullWidth
                     margin="dense"
-                    {...register("zone")}
+                    value={zone}
+                    onChange={(e) => setZone(e.target.value)}
                     InputProps={{
                       className: styles.input,
                     }}
@@ -384,22 +480,23 @@ const ClubForm: React.FC = () => {
 
                 <Grid item xs={12} sm={4}>
                   <TextField
-                    id="colors"
+                    id="clubColors"
                     label="Cores do Clube"
                     fullWidth
                     margin="dense"
-                    {...register("colors")}
+                    value={clubColors}
+                    onChange={(e) => setClubColors(e.target.value)}
                     InputProps={{
                       className: styles.input,
                     }}
-                    error={errors.colors ? true : false}
+                    error={errors.clubColors ? true : false}
                   />
                   <Typography
                     variant="inherit"
                     color="textSecondary"
                     className={styles.errorMessage}
                   >
-                    {errors.colors?.message}
+                    {errors.clubColors?.message}
                   </Typography>
                 </Grid>
 
@@ -409,7 +506,8 @@ const ClubForm: React.FC = () => {
                     label="instagram"
                     fullWidth
                     margin="dense"
-                    {...register("instagram")}
+                    value={instagram}
+                    onChange={(e) => setInstagram(e.target.value)}
                     InputProps={{
                       className: styles.input,
                     }}
@@ -430,7 +528,8 @@ const ClubForm: React.FC = () => {
                     label="Facebook"
                     fullWidth
                     margin="dense"
-                    {...register("facebook")}
+                    value={facebook}
+                    onChange={(e) => setFacebook(e.target.value)}
                     InputProps={{
                       className: styles.input,
                     }}
@@ -447,94 +546,101 @@ const ClubForm: React.FC = () => {
 
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    id="contactName"
+                    id="nameContact"
                     label="Nome do Contato"
                     fullWidth
                     margin="dense"
-                    {...register("contactName")}
+                    value={nameContact}
+                    onChange={(e) => setNameContact(e.target.value)}
                     InputProps={{
                       className: styles.input,
                     }}
-                    error={errors.contactName ? true : false}
+                    error={errors.nameContact ? true : false}
                   />
                   <Typography
                     variant="inherit"
                     color="textSecondary"
                     className={styles.errorMessage}
                   >
-                    {errors.contactName?.message}
+                    {errors.nameContact?.message}
                   </Typography>
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    id="contactPhone"
+                    id="phoneContact"
                     label="Telefone"
                     fullWidth
                     margin="dense"
-                    {...register("contactPhone")}
+                    value={phoneContact}
+                    onChange={(e) => setPhoneContact(e.target.value)}
                     InputProps={{
                       className: styles.input,
                     }}
-                    error={errors.contactPhone ? true : false}
+                    error={errors.phoneContact ? true : false}
                   />
                   <Typography
                     variant="inherit"
                     color="textSecondary"
                     className={styles.errorMessage}
                   >
-                    {errors.contactPhone?.message}
+                    {errors.phoneContact?.message}
                   </Typography>
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
                   <RadioButton
                     label="Campo Próprio?"
-                    valueOne="yes"
-                    valueTwo="no"
+                    defaultValue={ownField}
                     labelRadioOne="Sim"
                     labelRadioTwo="Não"
+                    id="ownField"
+                    // value={ownField}
+                    // onChange={(e) => setOwnField(e.target.value)}
+                    handleChange={() => {}}
                   />
                   <Typography
                     variant="inherit"
                     color="textSecondary"
                     className={styles.errorMessage}
                   >
-                    {errors.options?.message}
+                    {errors.ownField?.message}
                   </Typography>
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
                   <RadioButton
                     label="Deseja receber Patrocinio?"
-                    valueOne="yes"
-                    valueTwo="no"
+                    defaultValue={wantSponsorship}
                     labelRadioOne="Sim"
                     labelRadioTwo="Não"
+                    id="wantSponsorship"
+                    handleChange={() => {}}
                   />
                   <Typography
                     variant="inherit"
                     color="textSecondary"
                     className={styles.errorMessage}
                   >
-                    {errors.options?.message}
+                    {errors.wantSponsorship?.message}
                   </Typography>
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
                   <RadioButton
                     label="Tem Patrocinio?"
-                    valueOne="yes"
-                    valueTwo="no"
+                    defaultValue={isSponsorship}
                     labelRadioOne="Sim"
                     labelRadioTwo="Não"
+                    id="isSponsorship"
+                    handleChange={() => {}}
                   />
                   <Typography
                     variant="inherit"
                     color="textSecondary"
                     className={styles.errorMessage}
                   >
-                    {errors.options?.message}
+                    {errors.isSponsorship?.message}
                   </Typography>
                 </Grid>
 
@@ -544,7 +650,8 @@ const ClubForm: React.FC = () => {
                     label="Término do Patrocinio"
                     fullWidth
                     margin="dense"
-                    {...register("endDate")}
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
                     InputProps={{
                       className: styles.input,
                     }}
@@ -560,6 +667,7 @@ const ClubForm: React.FC = () => {
                   variant="contained"
                   type="submit"
                   className={styles.button}
+                  // onClick={newClubFb}
                 >
                   <Typography>CADASTRAR</Typography>
                 </Button>

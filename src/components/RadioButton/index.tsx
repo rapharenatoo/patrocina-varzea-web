@@ -1,34 +1,58 @@
-import * as React from 'react';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
+import * as React from "react";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
 
 interface Props {
-    label: string;
-    valueOne: string;
-    valueTwo: string;
-    labelRadioOne: string;
-    labelRadioTwo: string;
+  label: string;
+  id: string;
+  defaultValue: boolean;
+  labelRadioOne: string;
+  labelRadioTwo: string;
+  handleChange: (radioValue: string) => void;
 }
 
 const RadioButton: React.FC<Props> = ({
-    label,
-    valueOne,
-    valueTwo,
-    labelRadioOne,
-    labelRadioTwo,
-  }) => {
+  handleChange,
+  label,
+  id,
+  defaultValue,
+  labelRadioOne,
+  labelRadioTwo,
+}) => {
+  const onChange = React.useCallback(
+    (event: React.FormEvent<HTMLInputElement>) => {
+      handleChange(event.currentTarget.value);
+    },
+    [handleChange]
+  );
+
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">{label}</FormLabel>
-      <RadioGroup row aria-label="options" name="row-radio-buttons-group">
-        <FormControlLabel value={valueOne} control={<Radio />} label={labelRadioOne} />
-        <FormControlLabel value={valueTwo} control={<Radio />} label={labelRadioTwo} />
-    </RadioGroup>
+      <RadioGroup
+        row
+        onChange={onChange}
+        aria-label="options"
+        key="row-radio-buttons-group"
+        defaultValue={defaultValue}
+        name={id}
+      >
+        <FormControlLabel
+          value={true}
+          control={<Radio />}
+          label={labelRadioOne}
+        />
+        <FormControlLabel
+          value={false}
+          control={<Radio />}
+          label={labelRadioTwo}
+        />
+      </RadioGroup>
     </FormControl>
   );
-}
+};
 
 export default React.memo(RadioButton);
