@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
@@ -6,23 +7,13 @@ import { Box } from "@mui/system";
 
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
+import RadioButton from "../../components/RadioButton";
+
+import database from "../../services/firebase";
 
 import styles from "./styles.module.scss";
-import RadioButton from "../../components/RadioButton";
-// import axios from "axios";
-// import { api, apiLocalHost } from "../../services/api";
-import database from "../../services/firebase";
-import { useState } from "react";
 
-interface ClubFormProps {
-  setFieldValue?: (
-    field: string,
-    value: any,
-    shouldValidate?: boolean | undefined
-  ) => void;
-}
-
-const ClubForm: React.FC<ClubFormProps> = ({ setFieldValue }) => {
+const ClubForm: React.FC = () => {
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Nome do Clube é obrigatório"),
     email: Yup.string()
@@ -46,31 +37,14 @@ const ClubForm: React.FC<ClubFormProps> = ({ setFieldValue }) => {
   });
 
   const {
-    register,
-    handleSubmit,
-    setValue,
-    control,
     formState: { errors },
   } = useForm({ resolver: yupResolver(validationSchema) });
-
-  // const newClub = (data: any) => {
-  //   apiLocalHost
-  //     .post("/cadastro/clube", data)
-  //     .then(() => {
-  //       console.log("Deu tudo certo");
-  //       console.log(data);
-  //       // history.push("/");
-  //     })
-  //     .catch(() => {
-  //       console.log("DEU ERRADO");
-  //       console.log(data);
-  //     });
-  // };
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [taxId, setTaxId] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [street, setStreet] = useState("");
   const [number, setNumber] = useState("");
@@ -89,36 +63,47 @@ const ClubForm: React.FC<ClubFormProps> = ({ setFieldValue }) => {
   const [wantSponsorship, setWantSponsorship] = useState(true);
   const [isSponsorship, setIsSponsorship] = useState(false);
 
-  const newClubFb = (data: any) => {
+  const newClub = (data: any) => {
     data.preventDefault();
-    database.collection("club").add({
-      name,
-      email,
-      taxId,
-      password,
-      zipCode,
-      street,
-      number,
-      neighborhood,
-      state,
-      city,
-      foundationDate,
-      zone,
-      clubColors,
-      instagram,
-      facebook,
-      nameContact,
-      phoneContact,
-      endDate,
-      ownField,
-      wantSponsorship,
-      isSponsorship,
-    });
+    database
+      .collection("club")
+      .add({
+        name,
+        email,
+        taxId,
+        password,
+        zipCode,
+        street,
+        number,
+        neighborhood,
+        state,
+        city,
+        foundationDate,
+        zone,
+        clubColors,
+        instagram,
+        facebook,
+        nameContact,
+        phoneContact,
+        endDate,
+        ownField,
+        wantSponsorship,
+        isSponsorship,
+      })
+      .then(() => {
+        console.log("Cadastrado com Sucesso!!!");
+        window.alert("Cadastrado com Sucesso!");
+      })
+      .catch(() => {
+        console.log("Alguma coisa deu errado!!!");
+        window.alert("Alguma coisa deu errado. Tente novamente!");
+      });
 
     setName("");
     setEmail("");
     setTaxId("");
     setPassword("");
+    setConfirmPassword("");
     setZipCode("");
     setStreet("");
     setNumber("");
@@ -138,7 +123,7 @@ const ClubForm: React.FC<ClubFormProps> = ({ setFieldValue }) => {
     setIsSponsorship(false);
   };
 
-  const onBlurZipCode = (ev: any, setValue: any) => {
+  const onBlurZipCode = (ev: any) => {
     const { value } = ev.target;
 
     const zipCode = value?.replace(/[^0-9]/g, "");
@@ -150,11 +135,10 @@ const ClubForm: React.FC<ClubFormProps> = ({ setFieldValue }) => {
     fetch(`https://viacep.com.br/ws/${zipCode}/json/`)
       .then((res) => res.json())
       .then((data) => {
-        setValue("city", data.localidade);
-        setValue("neighborhood", data.bairro);
-        setValue("street", data.logradouro);
-        setValue("state", data.uf);
-        console.log("data", data);
+        setCity(data.localidade);
+        setNeighborhood(data.bairro);
+        setStreet(data.logradouro);
+        setState(data.uf);
       });
   };
 
@@ -172,7 +156,7 @@ const ClubForm: React.FC<ClubFormProps> = ({ setFieldValue }) => {
             >
               Cadastrar Clube
             </Typography>
-            <form onSubmit={newClubFb}>
+            <form onSubmit={newClub}>
               <Grid container spacing={1}>
                 <Grid item xs={12} sm={12}>
                   <TextField
@@ -275,6 +259,8 @@ const ClubForm: React.FC<ClubFormProps> = ({ setFieldValue }) => {
                     type="password"
                     fullWidth
                     margin="dense"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     InputProps={{
                       className: styles.input,
                     }}
@@ -298,7 +284,7 @@ const ClubForm: React.FC<ClubFormProps> = ({ setFieldValue }) => {
                     margin="dense"
                     value={zipCode}
                     onChange={(e) => setZipCode(e.target.value)}
-                    onBlur={(ev) => onBlurZipCode(ev, setValue)}
+                    onBlur={(ev) => onBlurZipCode(ev)}
                     InputProps={{
                       className: styles.input,
                     }}
@@ -321,11 +307,11 @@ const ClubForm: React.FC<ClubFormProps> = ({ setFieldValue }) => {
                     fullWidth
                     margin="dense"
                     value={street}
+                    name="street"
                     onChange={(e) => setStreet(e.target.value)}
                     InputProps={{
                       className: styles.input,
                     }}
-                    InputLabelProps={{ shrink: true }}
                     error={errors.street ? true : false}
                   />
                   <Typography
@@ -372,8 +358,6 @@ const ClubForm: React.FC<ClubFormProps> = ({ setFieldValue }) => {
                     InputProps={{
                       className: styles.input,
                     }}
-                    InputLabelProps={{ shrink: true }}
-                    defaultValue={""}
                     error={errors.neighborhood ? true : false}
                   />
                   <Typography
@@ -397,7 +381,6 @@ const ClubForm: React.FC<ClubFormProps> = ({ setFieldValue }) => {
                     InputProps={{
                       className: styles.input,
                     }}
-                    InputLabelProps={{ shrink: true }}
                     error={errors.state ? true : false}
                   />
                   <Typography
@@ -421,7 +404,6 @@ const ClubForm: React.FC<ClubFormProps> = ({ setFieldValue }) => {
                     InputProps={{
                       className: styles.input,
                     }}
-                    InputLabelProps={{ shrink: true }}
                     error={errors.city ? true : false}
                   />
 
@@ -503,7 +485,7 @@ const ClubForm: React.FC<ClubFormProps> = ({ setFieldValue }) => {
                 <Grid item xs={12} sm={6}>
                   <TextField
                     id="instagram"
-                    label="instagram"
+                    label="Instagram"
                     fullWidth
                     margin="dense"
                     value={instagram}
@@ -667,7 +649,6 @@ const ClubForm: React.FC<ClubFormProps> = ({ setFieldValue }) => {
                   variant="contained"
                   type="submit"
                   className={styles.button}
-                  // onClick={newClubFb}
                 >
                   <Typography>CADASTRAR</Typography>
                 </Button>
