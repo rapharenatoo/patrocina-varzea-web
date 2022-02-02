@@ -12,6 +12,7 @@ import RadioButton from "../../components/RadioButton";
 import database from "../../services/firebase";
 
 import styles from "./styles.module.scss";
+import { Link } from "react-router-dom";
 
 const ClubForm: React.FC = () => {
   const validationSchema = Yup.object().shape({
@@ -59,9 +60,9 @@ const ClubForm: React.FC = () => {
   const [nameContact, setNameContact] = useState("");
   const [phoneContact, setPhoneContact] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [ownField, setOwnField] = useState(false);
-  const [wantSponsorship, setWantSponsorship] = useState(true);
-  const [isSponsorship, setIsSponsorship] = useState(false);
+  const [ownField, setOwnField] = useState("no");
+  const [wantSponsorship, setWantSponsorship] = useState("yes");
+  const [isSponsorship, setIsSponsorship] = useState("no");
 
   const newClub = (data: any) => {
     data.preventDefault();
@@ -118,9 +119,9 @@ const ClubForm: React.FC = () => {
     setNameContact("");
     setPhoneContact("");
     setEndDate("");
-    setOwnField(false);
-    setWantSponsorship(true);
-    setIsSponsorship(false);
+    setOwnField("no");
+    setWantSponsorship("yes");
+    setIsSponsorship("no");
   };
 
   const onBlurZipCode = (ev: any) => {
@@ -577,9 +578,9 @@ const ClubForm: React.FC = () => {
                     labelRadioOne="Sim"
                     labelRadioTwo="Não"
                     id="ownField"
-                    // value={ownField}
-                    // onChange={(e) => setOwnField(e.target.value)}
-                    handleChange={() => {}}
+                    handleChange={(value) => {
+                      setOwnField(value);
+                    }}
                   />
                   <Typography
                     variant="inherit"
@@ -597,7 +598,9 @@ const ClubForm: React.FC = () => {
                     labelRadioOne="Sim"
                     labelRadioTwo="Não"
                     id="wantSponsorship"
-                    handleChange={() => {}}
+                    handleChange={(value) => {
+                      setWantSponsorship(value);
+                    }}
                   />
                   <Typography
                     variant="inherit"
@@ -615,7 +618,9 @@ const ClubForm: React.FC = () => {
                     labelRadioOne="Sim"
                     labelRadioTwo="Não"
                     id="isSponsorship"
-                    handleChange={() => {}}
+                    handleChange={(value) => {
+                      setIsSponsorship(value);
+                    }}
                   />
                   <Typography
                     variant="inherit"
@@ -645,6 +650,9 @@ const ClubForm: React.FC = () => {
                 </Grid>
               </Grid>
               <Box mt={3} className={styles.buttonContainer}>
+                <Link to="/" className={styles.buttonBase}>
+                  <Typography>VOLTAR</Typography>
+                </Link>
                 <Button
                   variant="contained"
                   type="submit"

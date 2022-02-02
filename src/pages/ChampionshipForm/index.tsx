@@ -1,7 +1,14 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  ButtonBase,
+  Grid,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Box } from "@mui/system";
 
 import { Header } from "../../components/Header";
@@ -9,32 +16,15 @@ import { Footer } from "../../components/Footer";
 
 import styles from "./styles.module.scss";
 import RadioButton from "../../components/RadioButton";
+import CheckBox from "../../components/CheckBox";
 import { useState } from "react";
 import database from "../../services/firebase";
 import { Link } from "react-router-dom";
 
-const ConfectionForm: React.FC = () => {
+const ChampionshipForm: React.FC = () => {
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Nome da Confecção é obrigatório"),
-    email: Yup.string()
-      .required("Email é obrigatório")
-      .email("Email está inválido"),
-    taxId: Yup.string().required("CPF/CNPJ é obrigatório"),
-    ie: Yup.string().required("Inscrição Estadual é obrigatório"),
-    password: Yup.string()
-      .required("Senha é obrigatório")
-      .min(6, "A senha deve ter pelo menos 6 caracteres")
-      .max(40, "A senha não deve ter mais de 40 caracteres"),
-    confirmPassword: Yup.string().oneOf(
-      [Yup.ref("password"), null],
-      "Senhas não são iguais"
-    ),
-    zipCode: Yup.string().required("CEP é obrigatório"),
-    address: Yup.string().required("Endereço é obrigatório"),
-    number: Yup.string().required("Número é obrigatório"),
-    neighborhood: Yup.string().required("Bairro é obrigatório"),
-    state: Yup.string().required("Estado é obrigatório"),
-    city: Yup.string().required("Cidade é obrigatório"),
+    name: Yup.string().required("Nome do Clube é obrigatório"),
+    email: Yup.string().email("Email está inválido"),
   });
 
   const {
@@ -44,43 +34,42 @@ const ConfectionForm: React.FC = () => {
   });
 
   const [name, setName] = useState("");
+  const [nameContact, setNameContact] = useState("");
+  const [contactPhone, setContactPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [taxId, setTaxId] = useState("");
-  const [ie, setIe] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [date, setDate] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [street, setStreet] = useState("");
   const [number, setNumber] = useState("");
   const [neighborhood, setNeighborhood] = useState("");
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
-  const [nameContact, setNameContact] = useState("");
-  const [contactPhone, setContactPhone] = useState("");
-  const [isSponsorship, setIsSponsorship] = useState("no");
+  const [zone, setZone] = useState<string[]>([]);
+  const [reward, setReward] = useState<string[]>([]);
 
-  const newConfection = (data: any) => {
+  const newChampionship = (data: any) => {
     data.preventDefault();
     database
-      .collection("confection")
+      .collection("championship")
       .add({
         name,
+        nameContact,
+        contactPhone,
         email,
-        taxId,
-        ie,
-        password,
+        date,
         zipCode,
         street,
         number,
         neighborhood,
         state,
         city,
-        nameContact,
-        contactPhone,
-        isSponsorship,
+        zone,
+        reward,
       })
       .then(() => {
         console.log("Cadastrado com Sucesso!!!");
+        console.log("zone: ", zone);
+        console.log("reward: ", reward);
         window.alert("Cadastrado com Sucesso!");
       })
       .catch(() => {
@@ -89,20 +78,18 @@ const ConfectionForm: React.FC = () => {
       });
 
     setName("");
+    setNameContact("");
+    setContactPhone("");
     setEmail("");
-    setTaxId("");
-    setIe("");
-    setPassword("");
-    setConfirmPassword("");
+    setDate("");
     setZipCode("");
     setStreet("");
     setNumber("");
     setNeighborhood("");
     setState("");
     setCity("");
-    setNameContact("");
-    setContactPhone("");
-    setIsSponsorship("no");
+    setZone([]);
+    setReward([]);
   };
 
   const onBlurZipCode = (ev: any) => {
@@ -136,15 +123,16 @@ const ConfectionForm: React.FC = () => {
               className={styles.title}
               margin="dense"
             >
-              Cadastrar Confecção de Uniformes
+              Campeonato
             </Typography>
-            <form onSubmit={newConfection}>
+
+            <form onSubmit={newChampionship}>
               <Grid container spacing={1}>
                 <Grid item xs={12} sm={12}>
                   <TextField
-                    required
                     id="name"
-                    label="Nome da Confecção"
+                    required
+                    label="Nome do Campeonato"
                     fullWidth
                     margin="dense"
                     value={name}
@@ -165,53 +153,50 @@ const ConfectionForm: React.FC = () => {
 
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    required
-                    id="taxId"
-                    label="CPF / CNPJ"
+                    id="nameContact"
+                    label="Nome do Organizador"
                     fullWidth
                     margin="dense"
-                    value={taxId}
-                    onChange={(e) => setTaxId(e.target.value)}
+                    value={nameContact}
+                    onChange={(e) => setNameContact(e.target.value)}
                     InputProps={{
                       className: styles.input,
                     }}
-                    error={errors.taxId ? true : false}
+                    error={errors.nameContact ? true : false}
                   />
                   <Typography
                     variant="inherit"
                     color="textSecondary"
                     className={styles.errorMessage}
                   >
-                    {errors.taxId?.message}
+                    {errors.nameContact?.message}
                   </Typography>
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    required
-                    id="ie"
-                    label="I.E."
+                    id="phoneContact"
+                    label="Telefone"
                     fullWidth
                     margin="dense"
-                    value={ie}
-                    onChange={(e) => setIe(e.target.value)}
+                    value={contactPhone}
+                    onChange={(e) => setContactPhone(e.target.value)}
                     InputProps={{
                       className: styles.input,
                     }}
-                    error={errors.ie ? true : false}
+                    error={errors.phoneContact ? true : false}
                   />
                   <Typography
                     variant="inherit"
                     color="textSecondary"
                     className={styles.errorMessage}
                   >
-                    {errors.ie?.message}
+                    {errors.phoneContact?.message}
                   </Typography>
                 </Grid>
 
-                <Grid item xs={12} sm={12}>
+                <Grid item xs={12} sm={6}>
                   <TextField
-                    required
                     id="email"
                     label="Email"
                     type="email"
@@ -235,56 +220,29 @@ const ConfectionForm: React.FC = () => {
 
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    required
-                    id="password"
-                    label="Senha"
-                    type="password"
+                    id="date"
+                    label="Mês de Início"
                     fullWidth
                     margin="dense"
                     color="primary"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
                     InputProps={{
                       className: styles.input,
                     }}
-                    error={errors.password ? true : false}
+                    error={errors.date ? true : false}
                   />
                   <Typography
                     variant="inherit"
                     color="textSecondary"
                     className={styles.errorMessage}
                   >
-                    {errors.password?.message}
-                  </Typography>
-                </Grid>
-
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    required
-                    id="confirmPassword"
-                    label="Confirmação Senha"
-                    type="password"
-                    fullWidth
-                    margin="dense"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    InputProps={{
-                      className: styles.input,
-                    }}
-                    error={errors.confirmPassword ? true : false}
-                  />
-                  <Typography
-                    variant="inherit"
-                    color="textSecondary"
-                    className={styles.errorMessage}
-                  >
-                    {errors.confirmPassword?.message}
+                    {errors.date?.message}
                   </Typography>
                 </Grid>
 
                 <Grid item xs={12} sm={2}>
                   <TextField
-                    required
                     id="zipCode"
                     label="CEP"
                     fullWidth
@@ -308,7 +266,6 @@ const ConfectionForm: React.FC = () => {
 
                 <Grid item xs={12} sm={8}>
                   <TextField
-                    required
                     id="street"
                     label="Endereço"
                     fullWidth
@@ -331,7 +288,6 @@ const ConfectionForm: React.FC = () => {
 
                 <Grid item xs={12} sm={2}>
                   <TextField
-                    required
                     id="number"
                     label="Nº"
                     fullWidth
@@ -354,7 +310,6 @@ const ConfectionForm: React.FC = () => {
 
                 <Grid item xs={12} sm={4}>
                   <TextField
-                    required
                     id="neighborhood"
                     label="Bairro"
                     fullWidth
@@ -377,7 +332,6 @@ const ConfectionForm: React.FC = () => {
 
                 <Grid item xs={12} sm={2}>
                   <TextField
-                    required
                     id="state"
                     label="Estado"
                     fullWidth
@@ -400,7 +354,6 @@ const ConfectionForm: React.FC = () => {
 
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    required
                     id="city"
                     label="Cidade"
                     fullWidth
@@ -421,74 +374,57 @@ const ConfectionForm: React.FC = () => {
                   </Typography>
                 </Grid>
 
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    id="nameContact"
-                    label="Nome do Contato"
-                    fullWidth
-                    margin="dense"
-                    value={nameContact}
-                    onChange={(e) => setNameContact(e.target.value)}
-                    InputProps={{
-                      className: styles.input,
-                    }}
-                    error={errors.contactName ? true : false}
+                <Grid item xs={12} sm={12}>
+                  <CheckBox
+                    key="zone"
+                    label="Localidade: "
+                    valueOne="norte"
+                    valueTwo="sul"
+                    valueThree="leste"
+                    valueFour="oeste"
+                    labeOne="Zona Norte"
+                    labeTwo="Zona Sul"
+                    labelThree="Zona Leste"
+                    labelFour="Zona Oeste"
+                    // onChange={(e) => setQtdTeams(e.target.value)}
                   />
                   <Typography
                     variant="inherit"
                     color="textSecondary"
                     className={styles.errorMessage}
                   >
-                    {errors.contactName?.message}
+                    {errors.zone?.message}
                   </Typography>
                 </Grid>
 
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    id="contactPhone"
-                    label="Telefone"
-                    fullWidth
-                    margin="dense"
-                    value={contactPhone}
-                    onChange={(e) => setContactPhone(e.target.value)}
-                    InputProps={{
-                      className: styles.input,
-                    }}
-                    error={errors.contactPhone ? true : false}
+                <Grid item xs={12} sm={12}>
+                  <CheckBox
+                    key="reward"
+                    label="Premiação:"
+                    valueOne="uniforme"
+                    valueTwo="trofeu"
+                    valueThree="medalhas"
+                    valueFour="dinheiro"
+                    labeOne="Jogo de Uniforme"
+                    labeTwo="Troféu"
+                    labelThree="Medalhas"
+                    labelFour="Dinheiro"
                   />
                   <Typography
                     variant="inherit"
                     color="textSecondary"
                     className={styles.errorMessage}
                   >
-                    {errors.contactPhone?.message}
-                  </Typography>
-                </Grid>
-
-                <Grid item xs={12} sm={6}>
-                  <RadioButton
-                    label="Deseja patrocinar?"
-                    defaultValue={isSponsorship}
-                    labelRadioOne="Sim"
-                    labelRadioTwo="Não"
-                    id="isSponsorship"
-                    handleChange={(value) => {
-                      setIsSponsorship(value);
-                    }}
-                  />
-                  <Typography
-                    variant="inherit"
-                    color="textSecondary"
-                    className={styles.errorMessage}
-                  >
-                    {errors.isSponsorship?.message}
+                    {errors.reward?.message}
                   </Typography>
                 </Grid>
               </Grid>
+
               <Box mt={3} className={styles.buttonContainer}>
-                <Link to="/" className={styles.buttonBase}>
+                <Link to="/cadastro/clube" className={styles.buttonBase}>
                   <Typography>VOLTAR</Typography>
                 </Link>
+
                 <Button
                   variant="contained"
                   type="submit"
@@ -506,4 +442,4 @@ const ConfectionForm: React.FC = () => {
   );
 };
 
-export default ConfectionForm;
+export default ChampionshipForm;

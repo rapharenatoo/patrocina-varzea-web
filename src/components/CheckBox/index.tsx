@@ -7,9 +7,6 @@ import FormLabel from "@mui/material/FormLabel";
 import {
   Checkbox,
   FormGroup,
-  Grid,
-  List,
-  ListItem,
   TextField,
 } from "@mui/material";
 
@@ -44,6 +41,12 @@ const RadioButton: React.FC<Props> = ({
   labelFive,
   labelSix,
 }) => {
+  const [checked, setChecked] = React.useState(false);
+
+  const handleChange = () => {
+    setChecked(!checked);
+  };
+
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">{label}</FormLabel>
@@ -55,27 +58,27 @@ const RadioButton: React.FC<Props> = ({
         />
         <FormControlLabel
           value={valueTwo}
-          control={<Checkbox />}
+          control={<Checkbox onChange={handleChange}/>}
           label={labeTwo}
         />
         {valueThree && (
           <FormControlLabel
             value={valueThree}
-            control={<Checkbox />}
+            control={<Checkbox onChange={handleChange}/>}
             label={labelThree || ""}
           />
         )}
         {valueFour && (
           <FormControlLabel
             value={valueFour}
-            control={<Checkbox />}
+            control={<Checkbox onChange={handleChange}/>}
             label={labelFour || ""}
           />
         )}
         {valueFive && (
           <FormControlLabel
             value={valueFive}
-            control={<Checkbox />}
+            control={<Checkbox onChange={handleChange}/>}
             label={labelFive || ""}
           />
         )}
@@ -83,7 +86,7 @@ const RadioButton: React.FC<Props> = ({
           <>
             <FormControlLabel
               value={valueSix}
-              control={<Checkbox />}
+              control={<Checkbox onChange={handleChange}/>}
               label={labelSix || ""}
             />
             <TextField variant="outlined" />

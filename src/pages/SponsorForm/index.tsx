@@ -12,6 +12,7 @@ import RadioButton from "../../components/RadioButton";
 import CheckBox from "../../components/CheckBox";
 import { useState } from "react";
 import database from "../../services/firebase";
+import { Link } from "react-router-dom";
 
 const SponsorForm: React.FC = () => {
   const validationSchema = Yup.object().shape({
@@ -55,7 +56,7 @@ const SponsorForm: React.FC = () => {
   const [city, setCity] = useState("");
   const [nameContact, setNameContact] = useState("");
   const [contactPhone, setContactPhone] = useState("");
-  const [wantSponsorship, setWantSponsorship] = useState(true);
+  const [wantSponsorship, setWantSponsorship] = useState("yes");
   const [qtdTeams, setQtdTeams] = useState<string[]>([]);
   const [sponsorType, setSponsorType] = useState<string[]>([]);
 
@@ -102,7 +103,7 @@ const SponsorForm: React.FC = () => {
     setCity("");
     setNameContact("");
     setContactPhone("");
-    setWantSponsorship(true);
+    setWantSponsorship("yes");
     setQtdTeams([]);
     setSponsorType([]);
   };
@@ -449,7 +450,9 @@ const SponsorForm: React.FC = () => {
                     labelRadioOne="Sim"
                     labelRadioTwo="Não"
                     id="wantSponsorship"
-                    handleChange={() => {}}
+                    handleChange={(value) => {
+                      setWantSponsorship(value);
+                    }}
                   />
                   <Typography
                     variant="inherit"
@@ -511,6 +514,9 @@ const SponsorForm: React.FC = () => {
               </Grid>
 
               <Box mt={3} className={styles.buttonContainer}>
+                <Link to="/"  className={styles.buttonBase}>
+                  <Typography>VOLTAR</Typography>
+                </Link>
                 <Button
                   variant="contained"
                   type="submit"

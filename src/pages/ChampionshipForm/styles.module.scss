@@ -45,7 +45,8 @@
         padding: 5px 8px;
         font-size: 0.8rem;
         font-weight: 500;
-        width: 100px;
+        width: 150px;
+        height: 45px;
 
         &:hover {
           filter: brightness(0.9);
@@ -82,7 +83,7 @@
 
     .content {
       width: 850px;
-      padding: 3rem 4rem;
+      padding: 3rem 3rem;
 
       .form {
         .button {

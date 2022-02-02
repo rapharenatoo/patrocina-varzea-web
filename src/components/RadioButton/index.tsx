@@ -8,7 +8,7 @@ import FormLabel from "@mui/material/FormLabel";
 interface Props {
   label: string;
   id: string;
-  defaultValue: boolean;
+  defaultValue: string;
   labelRadioOne: string;
   labelRadioTwo: string;
   handleChange: (radioValue: string) => void;
@@ -41,12 +41,12 @@ const RadioButton: React.FC<Props> = ({
         name={id}
       >
         <FormControlLabel
-          value={true}
+          value={"yes"}
           control={<Radio />}
           label={labelRadioOne}
         />
         <FormControlLabel
-          value={false}
+          value={"no"}
           control={<Radio />}
           label={labelRadioTwo}
         />
