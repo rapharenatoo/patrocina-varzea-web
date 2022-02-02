@@ -11,13 +11,6 @@
   justify-content: center;
   border-bottom: 1px solid #121214;
   padding: 2rem 2rem;
-  
-
-  .phone {
-    width: 95px;
-    height: 190px;
-    margin-bottom: 16px;
-  }
 
   .bannerText {
     display: flex;
@@ -27,7 +20,9 @@
 
     p {
       text-align: justify;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+      padding: 0;
+      margin-top: 20px;
     }
 
     a {
@@ -51,12 +46,6 @@
     border-bottom: 1px solid #121214;
     padding: 1rem 2rem;
 
-    .phone {
-      width: 300px;
-      height: 400px;
-      margin: 0 80px;
-    }
-
     .bannerText {
       margin-right: 60px;
 
@@ -77,21 +66,14 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     border-bottom: 1px solid #121214;
     padding: 1rem 2rem;
 
-    .phone {
-      width: 250px;
-      height: 500px;
-      margin: 0 200px;
-    }
-
     .bannerText {
-      margin-right: 200px;
+      margin-left: 150px;
       width: 40vw;
       p {
-        margin: 0 60px;
         font-size: 1.7rem;
         text-align: justify;
         padding-bottom: 60px;

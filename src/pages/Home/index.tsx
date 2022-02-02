@@ -1,8 +1,7 @@
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { TabsCategories } from "../../components/TabsCategories";
-
-import PhoneImg from "../../assets/phone.png";
+import CarouselComponent from "../../components/Carousel";
 
 import styles from "./styles.module.scss";
 
@@ -11,7 +10,7 @@ export function Home() {
     <>
       <Header />
       <section id="banner" className={styles.banner}>
-        <img src={PhoneImg} alt="App" className={styles.phone} />
+        <CarouselComponent />
         <div className={styles.bannerText}>
           <p>
             A plataforma funciona como uma vitrine de clubes, na qual, por meio
