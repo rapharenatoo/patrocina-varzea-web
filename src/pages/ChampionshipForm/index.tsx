@@ -44,8 +44,18 @@ const ChampionshipForm: React.FC = () => {
   const [neighborhood, setNeighborhood] = useState("");
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
-  const [zone, setZone] = useState<string[]>([]);
-  const [reward, setReward] = useState<string[]>([]);
+  const [zone, setZone] = useState({
+    norte: false,
+    sul: false,
+    leste: false,
+    oeste: false,
+  });
+  const [reward, setReward] = useState({
+    uniforme: false,
+    trofeu: false,
+    medalhas: false,
+    dinheiro: false,
+  });
 
   const newChampionship = (data: any) => {
     data.preventDefault();
@@ -88,8 +98,18 @@ const ChampionshipForm: React.FC = () => {
     setNeighborhood("");
     setState("");
     setCity("");
-    setZone([]);
-    setReward([]);
+    setZone({
+      norte: false,
+      sul: false,
+      leste: false,
+      oeste: false,
+    });
+    setReward({
+      uniforme: false,
+      trofeu: false,
+      medalhas: false,
+      dinheiro: false,
+    });
   };
 
   const onBlurZipCode = (ev: any) => {
@@ -109,6 +129,24 @@ const ChampionshipForm: React.FC = () => {
         setStreet(data.logradouro);
         setState(data.uf);
       });
+  };
+
+  const { norte, sul, leste, oeste } = zone;
+
+  const handleZoneChange = (event: any) => {
+    setZone({
+      ...zone,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
+  const { uniforme, trofeu, medalhas, dinheiro } = reward;
+
+  const handleRewardChange = (event: any) => {
+    setReward({
+      ...reward,
+      [event.target.name]: event.target.checked,
+    });
   };
 
   return (
@@ -377,16 +415,20 @@ const ChampionshipForm: React.FC = () => {
                 <Grid item xs={12} sm={12}>
                   <CheckBox
                     key="zone"
-                    label="Localidade: "
+                    labelTitle="Localidade: "
+                    checkedOne={norte}
+                    checkedTwo={sul}
+                    checkedThree={leste}
+                    checkedFour={oeste}
                     valueOne="norte"
                     valueTwo="sul"
                     valueThree="leste"
                     valueFour="oeste"
-                    labeOne="Zona Norte"
-                    labeTwo="Zona Sul"
+                    labelOne="Zona Norte"
+                    labelTwo="Zona Sul"
                     labelThree="Zona Leste"
                     labelFour="Zona Oeste"
-                    // onChange={(e) => setQtdTeams(e.target.value)}
+                    handleChange={handleZoneChange}
                   />
                   <Typography
                     variant="inherit"
@@ -400,15 +442,20 @@ const ChampionshipForm: React.FC = () => {
                 <Grid item xs={12} sm={12}>
                   <CheckBox
                     key="reward"
-                    label="Premiação:"
+                    labelTitle="Premiação:"
+                    checkedOne={uniforme}
+                    checkedTwo={trofeu}
+                    checkedThree={medalhas}
+                    checkedFour={dinheiro}
                     valueOne="uniforme"
                     valueTwo="trofeu"
                     valueThree="medalhas"
                     valueFour="dinheiro"
-                    labeOne="Jogo de Uniforme"
-                    labeTwo="Troféu"
+                    labelOne="Jogo de Uniforme"
+                    labelTwo="Troféu"
                     labelThree="Medalhas"
                     labelFour="Dinheiro"
+                    handleChange={handleRewardChange}
                   />
                   <Typography
                     variant="inherit"

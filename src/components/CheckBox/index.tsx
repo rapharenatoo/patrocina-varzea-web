@@ -4,89 +4,125 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-import {
-  Checkbox,
-  FormGroup,
-  TextField,
-} from "@mui/material";
+import { Checkbox, FormGroup, TextField } from "@mui/material";
 
 interface Props {
-  label: string;
+  labelTitle: string;
   valueOne: string;
   valueTwo: string;
   valueThree?: string;
   valueFour?: string;
   valueFive?: string;
   valueSix?: string;
-  labeOne: string;
-  labeTwo: string;
+  labelOne: string;
+  labelTwo: string;
   labelThree?: string;
   labelFour?: string;
   labelFive?: string;
   labelSix?: string;
+  checkedOne: boolean;
+  checkedTwo: boolean;
+  checkedThree?: boolean;
+  checkedFour?: boolean;
+  checkedFive?: boolean;
+  checkedSix?: boolean;
+  handleChange: (event: any) => void;
 }
 
 const RadioButton: React.FC<Props> = ({
-  label,
+  labelTitle,
   valueOne,
   valueTwo,
   valueThree,
   valueFour,
   valueFive,
   valueSix,
-  labeOne,
-  labeTwo,
+  labelOne,
+  labelTwo,
   labelThree,
   labelFour,
   labelFive,
   labelSix,
+  checkedOne,
+  checkedTwo,
+  checkedThree,
+  checkedFour,
+  checkedFive,
+  checkedSix,
+  handleChange,
 }) => {
   const [checked, setChecked] = React.useState(false);
 
-  const handleChange = () => {
-    setChecked(!checked);
-  };
-
   return (
     <FormControl component="fieldset">
-      <FormLabel component="legend">{label}</FormLabel>
+      <FormLabel component="legend">{labelTitle}</FormLabel>
       <FormGroup aria-label="position" row>
         <FormControlLabel
-          value={valueOne}
-          control={<Checkbox />}
-          label={labeOne}
+          control={
+            <Checkbox
+              checked={checkedOne}
+              onChange={handleChange}
+              name={valueOne}
+            />
+          }
+          label={labelOne}
         />
         <FormControlLabel
-          value={valueTwo}
-          control={<Checkbox onChange={handleChange}/>}
-          label={labeTwo}
+          control={
+            <Checkbox
+              checked={checkedTwo}
+              onChange={handleChange}
+              name={valueTwo}
+            />
+          }
+          label={labelTwo}
         />
         {valueThree && (
           <FormControlLabel
-            value={valueThree}
-            control={<Checkbox onChange={handleChange}/>}
+            control={
+              <Checkbox
+                checked={checkedThree}
+                onChange={handleChange}
+                name={valueThree}
+              />
+            }
             label={labelThree || ""}
           />
         )}
         {valueFour && (
           <FormControlLabel
-            value={valueFour}
-            control={<Checkbox onChange={handleChange}/>}
+            control={
+              <Checkbox
+                checked={checkedFour}
+                onChange={handleChange}
+                name={valueFour}
+              />
+            }
             label={labelFour || ""}
           />
         )}
         {valueFive && (
           <FormControlLabel
-            value={valueFive}
-            control={<Checkbox onChange={handleChange}/>}
+            control={
+              <Checkbox
+                checked={checkedFive}
+                onChange={handleChange}
+                name={valueFive}
+              />
+            }
             label={labelFive || ""}
           />
         )}
         {valueSix && (
           <>
             <FormControlLabel
-              value={valueSix}
-              control={<Checkbox onChange={handleChange}/>}
+              control={
+                <Checkbox
+                  checked={checkedSix}
+                  onChange={handleChange}
+                  name={valueSix}
+                />
+              }
               label={labelSix || ""}
             />
             <TextField variant="outlined" />

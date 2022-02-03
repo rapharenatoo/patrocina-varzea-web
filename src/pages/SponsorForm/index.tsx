@@ -57,8 +57,20 @@ const SponsorForm: React.FC = () => {
   const [nameContact, setNameContact] = useState("");
   const [contactPhone, setContactPhone] = useState("");
   const [wantSponsorship, setWantSponsorship] = useState("yes");
-  const [qtdTeams, setQtdTeams] = useState<string[]>([]);
-  const [sponsorType, setSponsorType] = useState<string[]>([]);
+  const [qtdTeams, setQtdTeams] = useState({
+    junenil: false,
+    sport: false,
+    veterano: false,
+    feminino: false,
+  });
+  const [sponsorType, setSponsorType] = useState({
+    manga: false,
+    frente: false,
+    costa: false,
+    doacaoProdutos: false,
+    dinheiro: false,
+    outroTipo: false,
+  });
 
   const newSponsor = (data: any) => {
     data.preventDefault();
@@ -104,8 +116,20 @@ const SponsorForm: React.FC = () => {
     setNameContact("");
     setContactPhone("");
     setWantSponsorship("yes");
-    setQtdTeams([]);
-    setSponsorType([]);
+    setQtdTeams({
+      junenil: false,
+      sport: false,
+      veterano: false,
+      feminino: false,
+    });
+    setSponsorType({
+      manga: false,
+      frente: false,
+      costa: false,
+      doacaoProdutos: false,
+      dinheiro: false,
+      outroTipo: false,
+    });
   };
 
   const onBlurZipCode = (ev: any) => {
@@ -125,6 +149,22 @@ const SponsorForm: React.FC = () => {
         setStreet(data.logradouro);
         setState(data.uf);
       });
+  };
+
+  const { junenil, sport, veterano, feminino } = qtdTeams;
+
+  const handleQtdTeamsChange = (event: any) => {
+    setQtdTeams({ ...qtdTeams, [event.target.name]: event.target.checked });
+  };
+
+  const { manga, frente, costa, doacaoProdutos, dinheiro, outroTipo } =
+    sponsorType;
+
+  const handleSponsorTypeChange = (event: any) => {
+    setSponsorType({
+      ...sponsorType,
+      [event.target.name]: event.target.checked,
+    });
   };
 
   return (
@@ -466,16 +506,20 @@ const SponsorForm: React.FC = () => {
                 <Grid item xs={12} sm={12}>
                   <CheckBox
                     key="qtdTeams"
-                    label="Quantidade de times à patrocinar: "
+                    labelTitle="Quantidade de times à patrocinar: "
+                    checkedOne={junenil}
+                    checkedTwo={sport}
+                    checkedThree={veterano}
+                    checkedFour={feminino}
                     valueOne="junenil"
                     valueTwo="sport"
                     valueThree="veterano"
                     valueFour="feminino"
-                    labeOne="Juvenil"
-                    labeTwo="Sport"
+                    labelOne="Juvenil"
+                    labelTwo="Sport"
                     labelThree="Veterano"
                     labelFour="Feminino"
-                    // onChange={(e) => setQtdTeams(e.target.value)}
+                    handleChange={handleQtdTeamsChange}
                   />
                   <Typography
                     variant="inherit"
@@ -489,19 +533,26 @@ const SponsorForm: React.FC = () => {
                 <Grid item xs={12} sm={12}>
                   <CheckBox
                     key="sponsorType"
-                    label="Tipo de Patrocinío:"
+                    labelTitle="Tipo de Patrocinío:"
+                    checkedOne={manga}
+                    checkedTwo={frente}
+                    checkedThree={costa}
+                    checkedFour={doacaoProdutos}
+                    checkedFive={dinheiro}
+                    checkedSix={outroTipo}
                     valueOne="manga"
                     valueTwo="frente"
                     valueThree="costa"
                     valueFour="doacaoProdutos"
                     valueFive="dinheiro"
                     valueSix="outroTipo"
-                    labeOne="Manga"
-                    labeTwo="Frente"
+                    labelOne="Manga"
+                    labelTwo="Frente"
                     labelThree="Costa"
                     labelFour="Doação de produtos"
                     labelFive="Dinheiro em espécie"
                     labelSix="Outro tipo: "
+                    handleChange={handleSponsorTypeChange}
                   />
                   <Typography
                     variant="inherit"
@@ -514,7 +565,7 @@ const SponsorForm: React.FC = () => {
               </Grid>
 
               <Box mt={3} className={styles.buttonContainer}>
-                <Link to="/"  className={styles.buttonBase}>
+                <Link to="/" className={styles.buttonBase}>
                   <Typography>VOLTAR</Typography>
                 </Link>
                 <Button
