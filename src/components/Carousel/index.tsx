@@ -15,7 +15,7 @@ const CarouselComponent: React.FC = () => {
       showThumbs={false}
       showStatus={false}
       infiniteLoop
-      width="300px"
+      width="230px"
     >
       <div>
         <img src={PhoneSplash} />
