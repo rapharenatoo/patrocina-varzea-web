@@ -1,19 +1,18 @@
-import firebase from 'firebase/compat/app';
+import firebase from "firebase/compat/app";
 
-import 'firebase/compat/firestore';
-
+import "firebase/compat/firestore";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCduvnjXBHePGtCBEoeFFu6XVzUP0Uuv3o",
-    authDomain: "patrocina-varzea-bfa92.firebaseapp.com",
-    projectId: "patrocina-varzea-bfa92",
-    storageBucket: "patrocina-varzea-bfa92.appspot.com",
-    messagingSenderId: "632230304137",
-    appId: "1:632230304137:web:f95c79d4269ab67b92a958",
-    measurementId: "G-SDB23R1VQH",
+  apiKey: "AIzaSyDSetc5ZIe5rEXG-lozcj8P9mlDsDEMN-E",
+  authDomain: "patrocina-varzea-27163.firebaseapp.com",
+  projectId: "patrocina-varzea-27163",
+  storageBucket: "patrocina-varzea-27163.appspot.com",
+  messagingSenderId: "849948842277",
+  appId: "1:849948842277:web:32bdd0b2378a4a591b22cc",
+  measurementId: "G-9V4QSFXYCD",
 };
 
-const firebaseApp = firebase.initializeApp(firebaseConfig)
+const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 const database = firebaseApp.firestore();
 
