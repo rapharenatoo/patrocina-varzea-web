@@ -19,52 +19,15 @@ export function Header() {
 
   return (
     <header className={styles.container}>
-      <Link to="/" style={{ backgroundColor: "transparent" }}>
-        <img src={logoImg} alt="Patrocina Várzea" className={styles.logo} />
+      <Link to='/' style={{ backgroundColor: "transparent" }}>
+        <img src={logoImg} alt='Patrocina Várzea' className={styles.logo} />
       </Link>
 
       <div className={styles.navLink}>
-        <div>
-          <button id="basic-button" onClick={handleClick}>
-            Cadastre-se
-          </button>
-
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              "aria-labelledby": "basic-button",
-            }}
-            PaperProps={{
-              style: {
-                backgroundColor: "#121214",
-              },
-            }}
-          >
-            <MenuItem>
-              <Link to="/cadastro/clube" style={{ color: "#e1e1e6" }}>
-                Clube
-              </Link>
-            </MenuItem>
-            <MenuItem>
-              <Link to="/cadastro/patrocinador" style={{ color: "#e1e1e6" }}>
-                Patrocinador
-              </Link>
-            </MenuItem>
-            <MenuItem>
-              <Link to="/cadastro/confeccao" style={{ color: "#e1e1e6" }}>
-                Confecção
-              </Link>
-            </MenuItem>
-          </Menu>
-        </div>
-
-        <Link to="/sobre">
+        <Link to='/sobre'>
           <p>Sobre</p>
         </Link>
-        <Link to="/contato">
+        <Link to='/contato'>
           <p>Contato</p>
         </Link>
       </div>

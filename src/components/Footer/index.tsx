@@ -19,16 +19,14 @@ export function Footer() {
           <Link to="/contato">
             <p>Contato</p>
           </Link>
-          <a href="https://play.google.com/store/apps" target="_blank">
+          <a href="https://play.google.com/store/apps/details?id=com.bllackdev.patrocinavarzea" target="_blank">
             <p>Baixe o App</p>
           </a>
         </div>
       </div>
       <div className={styles.contentBottom}>
         <p>
-          Copyright Notice © 2021 | PV - Patrocina Várzea LTDA | CNPJ:
-          00.000.000/0001-00 | São Paulo/SP | Brazil | All rights reserved
-          Patrocina Várzea
+          Copyright Notice © 2021
         </p>
         <p>Website developed by: Bllackdev</p>
         <img

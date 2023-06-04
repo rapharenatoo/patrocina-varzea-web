@@ -17,7 +17,7 @@ export function Home() {
             de um aplicativo, potenciais patrocinadores, de qualquer porte,
             podem patrocinar os clubes e participar de suas conquistas.
           </p>
-          <a href="https://play.google.com/store/apps" target="_blank">
+          <a href="https://play.google.com/store/apps/details?id=com.bllackdev.patrocinavarzea" target="_blank">
             Baixe o App
           </a>
         </div>
