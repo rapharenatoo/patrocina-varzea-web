@@ -9,33 +9,33 @@ import styles from "./styles.module.scss";
 
 import checkImg from "../../assets/check.png";
 
-const SendEmailSuccess: React.FC = () => {
+export function SendEmailSuccess() {
   return (
     <>
       <Header />
       <main className={styles.container}>
-        <Paper variant="outlined" elevation={3} className={styles.content}>
+        <Paper variant='outlined' elevation={3} className={styles.content}>
           <Box className={styles.form}>
             <img
               src={checkImg}
-              alt="Patrocina Várzea"
+              alt='Patrocina Várzea'
               className={styles.logo}
             />
-            <Typography align="center" className={styles.title} margin="dense">
+            <Typography align='center' className={styles.title} margin='dense'>
               E-mail enviado!
             </Typography>
 
             <Typography
-              variant="body2"
-              align="center"
+              variant='body2'
+              align='center'
               className={styles.subTitle}
-              margin="dense"
+              margin='dense'
             >
               Seu e-mail foi enviado com sucesso. Obrigado pelo seu contato!
             </Typography>
 
             <Box mt={3}>
-              <Link to="/">Confirmar</Link>
+              <Link to='/'>Confirmar</Link>
             </Box>
           </Box>
         </Paper>
@@ -43,6 +43,6 @@ const SendEmailSuccess: React.FC = () => {
       <Footer />
     </>
   );
-};
+}
 
 export default SendEmailSuccess;

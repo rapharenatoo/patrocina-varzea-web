@@ -1,5 +1,5 @@
 import * as React from "react";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
 import PhoneSplash from "../../assets/phone-splash.png";
@@ -7,7 +7,7 @@ import PhoneOptions from "../../assets/phone-options.png";
 import PhoneLogin from "../../assets/phone-login.png";
 import PhoneCampeonato from "../../assets/phone-campeonato.png";
 
-const CarouselComponent: React.FC = () => {
+export function CarouselComponent() {
   return (
     <Carousel
       autoPlay
@@ -15,7 +15,7 @@ const CarouselComponent: React.FC = () => {
       showThumbs={false}
       showStatus={false}
       infiniteLoop
-      width="230px"
+      width='230px'
     >
       <div>
         <img src={PhoneSplash} />
@@ -31,6 +31,4 @@ const CarouselComponent: React.FC = () => {
       </div>
     </Carousel>
   );
-};
-
-export default CarouselComponent;
+}

@@ -1,9 +1,5 @@
-
-
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
-
-import PlayersImg from '../../assets/players.png';
 
 import styles from './styles.module.scss'
 
@@ -13,7 +9,6 @@ export function About() {
     <Header />
       <main className={styles.container}>
           <div className={styles.content}>
-            <img src={PlayersImg} alt="Jogadores" />
             <div className={styles.text}>
                 <h1>Sobre</h1>
                 <p>
