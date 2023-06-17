@@ -8,9 +8,7 @@ import { ThemeProvider } from "@material-ui/core";
 
 import { TabPanel } from "../../components/TabPanel";
 
-import clubImg from "../../assets/club.png";
-import sponsorImg from "../../assets/sponsor.png";
-import confectionImg from "../../assets/confection.png";
+import logoImg from "../../assets/logo-tabs.png";
 
 import styles from "./styles.module.scss";
 
@@ -37,7 +35,6 @@ export function TabsCategories() {
   const clubContent = () => {
     return (
       <>
-        <img src={clubImg} alt="Clube" />
         <p>
           Os times de várzea são constituídos, em sua maioria, através de
           encontros de amigos de bairros nas comunidades da periferia. Se unem
@@ -58,6 +55,7 @@ export function TabsCategories() {
           uniformes e demais produtos esportivos tais como, bolas, chuteiras,
           troféus, mochilas, etc.
         </p>
+        <img src={logoImg} alt='Logo patrocina várzea' />
       </>
     );
   };
@@ -65,7 +63,6 @@ export function TabsCategories() {
   const sponsorContent = () => {
     return (
       <>
-        <img src={sponsorImg} alt="Patrocinador" />
         <p>
           Possibilidade de expor suas marcas em todas as regiões (norte, sul,
           leste e oeste) e seus respectivos bairros da capital do Estado de São
@@ -87,6 +84,7 @@ export function TabsCategories() {
           jovens das comunidades das periferias. 90% dos jogadores
           profissionais, passam pelos times de várzea.
         </p>
+        <img src={logoImg} alt='Logo patrocina várzea' />
       </>
     );
   };
@@ -94,7 +92,6 @@ export function TabsCategories() {
   const confectionContent = () => {
     return (
       <>
-        <img src={confectionImg} alt="Confecção" />
         <p>
           Apostamos nessa parceria para juntar os interesses mútuos das empresas
           e dos clubes/times, possibilitando às empresas aumentarem suas vendas
@@ -113,6 +110,7 @@ export function TabsCategories() {
           patrocinadoras de campeonatos. 90% dos jogadores profissionais passam
           pelos times de várzea.
         </p>
+        <img src={logoImg} alt='Logo patrocina várzea' />
       </>
     );
   };
@@ -123,14 +121,14 @@ export function TabsCategories() {
         <Tabs
           value={value}
           onChange={handleChange}
-          indicatorColor="secondary"
-          textColor="secondary"
+          indicatorColor='secondary'
+          textColor='secondary'
           selectionFollowsFocus
           centered
         >
-          <Tab label="Clube" {...tabContent(0)} />
-          <Tab label="Patrocinador" {...tabContent(1)} />
-          <Tab label="Confecção" {...tabContent(2)} />
+          <Tab label='Clube' {...tabContent(0)} />
+          <Tab label='Patrocinador' {...tabContent(1)} />
+          <Tab label='Confecção' {...tabContent(2)} />
         </Tabs>
         <SwipeableViews
           axis={theme.direction === "rtl" ? "x-reverse" : "x"}
