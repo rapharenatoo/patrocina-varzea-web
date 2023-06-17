@@ -4,7 +4,9 @@ import { Carousel } from "react-responsive-carousel";
 
 import PhoneSplash from "../../assets/phone-splash.png";
 import PhoneOptions from "../../assets/phone-options.png";
-import PhoneLogin from "../../assets/phone-login.png";
+import PhoneHomePatrocinador from "../../assets/phone-home-patrocinador.png";
+import PhoneHomeConfeccao from "../../assets/phone-home-confeccao.png";
+import PhoneClub from "../../assets/phone-club.png";
 import PhoneCampeonato from "../../assets/phone-campeonato.png";
 
 export function CarouselComponent() {
@@ -24,10 +26,16 @@ export function CarouselComponent() {
         <img src={PhoneOptions} />
       </div>
       <div>
-        <img src={PhoneLogin} />
+        <img src={PhoneHomePatrocinador} />
       </div>
       <div>
         <img src={PhoneCampeonato} />
+      </div>
+      <div>
+        <img src={PhoneHomeConfeccao} />
+      </div>
+      <div>
+        <img src={PhoneClub} />
       </div>
     </Carousel>
   );
