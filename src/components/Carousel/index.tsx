@@ -29,6 +29,12 @@ export function CarouselComponent() {
         <img src={PhoneHomePatrocinador} />
       </div>
       <div>
+        <img src={PhoneHome} />
+      </div>
+      <div>
+        <img src={PhoneClub} />
+      </div>
+      <div>
         <img src={PhoneCampeonato} />
       </div>
       <div>
