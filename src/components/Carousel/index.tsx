@@ -19,7 +19,7 @@ export function CarouselComponent() {
       infiniteLoop
       width='230px'
     >
-      <div>
+       <div>
         <img src={PhoneSplash} />
       </div>
       <div>
@@ -27,12 +27,6 @@ export function CarouselComponent() {
       </div>
       <div>
         <img src={PhoneHomePatrocinador} />
-      </div>
-      <div>
-        <img src={PhoneHome} />
-      </div>
-      <div>
-        <img src={PhoneClub} />
       </div>
       <div>
         <img src={PhoneCampeonato} />
